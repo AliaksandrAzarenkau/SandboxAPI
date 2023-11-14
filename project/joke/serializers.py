@@ -10,13 +10,13 @@ class JokeResponseHandling:
         setup = response_data.get('setup')
         punchline = response_data.get('punchline')
 
-        request_data = Joke(
-            joke_id=j_id,
-            joke_category=category,
-            joke_setup=setup,
-            joke_punchline=punchline
-        )
-        request_data.save()
+        if not Joke.objects.filter(joke_setup=setup).exists():
+            Joke.objects.create(
+                joke_id=j_id,
+                joke_category=category,
+                joke_setup=setup,
+                joke_punchline=punchline
+            )
 
 
 class JokeSerializer(serializers.ModelSerializer, JokeResponseHandling):

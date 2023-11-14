@@ -6,8 +6,8 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Joke
-from .serializers import JokeSerializer
+from .models import DogsPhoto
+from .serializers import DogsPhotoSerializer
 from django.conf import settings
 
 
@@ -22,17 +22,19 @@ class BaseDocumentPostView(APIView):
         return Response(response.json(), status=response.status_code)
 
     def get(self, request):
-        id_count = Joke.objects.count()
-        response_setup = Joke.objects.get(id=randint(1, id_count)).joke_setup
-        response_punchline = Joke.objects.get(id=randint(1, id_count)).joke_punchline
-        return Response({response_setup: response_punchline})
+        id_count = DogsPhoto.objects.count()
+        response = DogsPhoto.objects.get(id=randint(1, id_count)).message
+        return Response(response)
 
 
-class JokeViewSet(viewsets.ModelViewSet):
-    queryset = Joke.objects.all()
-    serializer_class = JokeSerializer
+class DogsPhotoViewSet(viewsets.ModelViewSet):
+    queryset = DogsPhoto.objects.all()
+    serializer_class = DogsPhotoSerializer
 
 
-class JokeView(BaseDocumentPostView, APIView):
-    serializer_class = JokeSerializer
-    api_url = settings.URL_JOKES
+class DogsPhotoView(BaseDocumentPostView, APIView):
+    serializer_class = DogsPhotoSerializer
+    api_url = settings.URL_PHOTOS
+
+
+

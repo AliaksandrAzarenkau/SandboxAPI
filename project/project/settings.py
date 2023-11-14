@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     'joke',
     'entertainments',
+    'dogsphoto',
 ]
 
 MIDDLEWARE = [
@@ -113,3 +114,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+URL_JOKES = 'https://official-joke-api.appspot.com/random_joke'
+
+URL_ENTERTAINMENTS = 'http://www.boredapi.com/api/activity'
+
+URL_PHOTOS = 'http://dog.ceo/api/breeds/image/random'

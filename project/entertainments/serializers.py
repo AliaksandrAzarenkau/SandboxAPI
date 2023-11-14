@@ -12,17 +12,16 @@ class EntertainmentsResponseHandling:
         key = response_data.get('key')
         accessibility = response_data.get('accessibility')
 
-        request_data = Entertainments(
-            category=type,
-            entertainment=activity,
-            participants=participants,
-            price=price,
-            accessibility=accessibility,
-            entertainment_id=key,
-            link=link,
-        )
-
-        request_data.save()
+        if not Entertainments.objects.filter(entertainment=activity).exists():
+            Entertainments.objects.create(
+                category=type,
+                entertainment=activity,
+                participants=participants,
+                price=price,
+                accessibility=accessibility,
+                entertainment_id=key,
+                link=link,
+            )
 
 
 class EntertainmentsSerializer(serializers.ModelSerializer, EntertainmentsResponseHandling):
